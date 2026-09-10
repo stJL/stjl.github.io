@@ -1,5 +1,5 @@
-baseurl = "https://example.com"
-defaultContentLanguage = "en"
+baseurl = "https://janusng.github.io/"
+defaultContentLanguage = "zh"
 locale = "en"
 title = "Hugo Theme Dream"
 theme = "dream"
