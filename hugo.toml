@@ -1,14 +1,14 @@
-baseurl = "https://janusng.github.io/"
-defaultContentLanguage = "en"
-locale = "en"
-title = "Hugo Theme Dream"
+baseurl = "https://stjl.github.io/"
+defaultContentLanguage = "zh"
+locale = "zh"
+title = "小麟的網路日記📓"
 theme = "dream"
 
 # [services]
 # [services.disqus]
 # shortname = ""
-# [services.googleAnalytics]
-# ID = ""
+[services.googleAnalytics]
+ID = "G-XLWVSBGEG0"
 
 [params]
 # zenMode = true
