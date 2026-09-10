@@ -1,0 +1,202 @@
+{{ if site.Params.stickyNav }}
+<nav x-data="{ isSticky: false }"
+  x-init="window.addEventListener('scroll', () => { isSticky = window.scrollY > 30 })"
+  class="sticky top-0 z-30 mt-4 lg:mt-8 py-4"
+  :class="{ 'bg-base-100 shadow-lg dark:border-b dark:border-base-content/30': isSticky }">
+{{ else }}
+<nav class="mt-4 lg:mt-8 py-4">
+{{ end }}
+  {{ if site.Params.zenMode }}
+  <div class="container flex justify-between max-w-[65ch] mx-auto px-4 md:px-0">
+  {{ else }}
+  <div class="container flex justify-between px-4">
+  {{ end }}
+    <section class="flex items-center gap-2">
+      <!-- 優化後的寫法：點擊直接回當前語言首頁、移除綠點與翻轉屬性 -->
+      <a href="{{ site.Home.RelPermalink }}" class="avatar" title="{{ site.Params.headerTitle | default "Home" }}">
+        <div class="w-12 h-12 rounded-full select-none overflow-hidden hover:opacity-85 transition-opacity">
+          <img src="{{ site.Params.avatar | relURL }}" alt="{{ site.Params.headerTitle }}" />
+        </div>
+      </a>
+
+      {{ if or site.Params.headerTitle site.Params.motto }}
+      <div>
+        {{ if site.Params.headerTitle }}
+        <a href="{{ site.BaseURL }}" class="text-lg font-semibold cursor-pointer">
+          {{ site.Params.headerTitle }}
+        </a>
+        {{ end }}
+        {{ if site.Params.motto }}
+        <div class="text-base-content/60 text-sm">{{ site.Params.motto }}</div>
+        {{ end }}
+      </div>
+      {{ end }}
+    </section>
+
+    {{ $navItems := slice "about" "search" "rss" "posts" "categories" "tags" }}
+    {{ if site.Params.reorderNavItems }}
+      {{ $navItems = site.Params.reorderNavItems }}
+    {{ end }}
+
+    <div class="dropdown dropdown-end sm:hidden">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-square" aria-label="Select an option">
+        <ion-icon name="menu" class="text-2xl"></ion-icon>
+      </div>
+      <ul tabindex="0" class="dropdown-content menu w-36 bg-base-100 rounded-box z-10 shadow-md">
+        {{ partial "navMobileMenu.html" (dict "navItems" $navItems) }}
+
+        {{/* 手機版：若在中文頁面才顯示繁簡切換 */}}
+        {{ if hasPrefix .Language.Lang "zh" }}
+        <li>
+          <a id="zh-toggle-mobile" class="cursor-pointer">切換簡體</a>
+        </li>
+        {{ end }}
+
+        {{/* 手機版：多語言（中/英等）切換項目 */}}
+        {{ if .Page.IsTranslated }}
+          <li class="menu-title text-xs opacity-60"><span>Language</span></li>
+          {{ range .Page.Translations }}
+          <li>
+            <a href="{{ .Permalink }}">{{ .Language.LanguageName }}</a>
+          </li>
+          {{ end }}
+        {{ end }}
+      </ul>
+    </div>
+
+    <section class="hidden sm:flex sm:items-center sm:gap-2 md:gap-4">
+      {{/* 電腦版：繁簡切換按鈕（只在中文頁面顯示） */}}
+      {{ if hasPrefix .Language.Lang "zh" }}
+      <button id="zh-toggle-btn" type="button"
+        class="btn btn-ghost btn-circle btn-md font-medium cursor-pointer p-2"
+        title="繁簡切換">
+        简
+      </button>
+      {{ end }}
+
+      {{ if .Page.IsTranslated }}
+      <div class="flex items-center gap-1">
+        {{ range .Page.Translations }}
+        <a href="{{ .Permalink }}"
+          class="btn btn-ghost btn-md font-medium p-2"
+          title="{{ .Language.LanguageName }}">
+          {{ .Language.LanguageName }}
+        </a>
+        {{ end }}
+      </div>
+      {{ end }}
+
+      {{ if not site.Params.collapseNavItems }}
+
+      {{ range $navItems }}
+      {{ partial "renderNavItem.html" . }}
+      {{ end }}
+
+      {{ with site.Params.navItems }}
+      {{ partial "navCustomItems.html" (dict "navItems" $navItems "mobile" false) }}
+      {{ end }}
+
+      {{ else }}
+
+      {{ $collapseNavItems := site.Params.collapseNavItems }}
+      {{ $items := complement $collapseNavItems $navItems }}
+      {{ range $items }}
+      {{ partial "renderNavItem.html" . }}
+      {{ end }}
+
+      <div class="dropdown dropdown-end dropdown-hover">
+        <div tabindex="0" role="button" class="group inline-flex items-center p-2 rounded-full cursor-pointer hover:bg-primary" aria-label="Select an option">
+          <ion-icon class="group-hover:text-primary-content text-xl" name="menu"></ion-icon>
+        </div>
+        <ul tabindex="0" class="dropdown-content menu w-36 bg-base-100 rounded-box z-10 shadow-xl">
+          {{ range $collapseNavItems }}
+          {{ partial "renderMobileNavItem.html" . }}
+          {{ end }}
+
+          {{ with site.Params.navItems }}
+          {{ partial "navCustomItems.html" (dict "navItems" $navItems "mobile" true) }}
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+    </section>
+  </div>
+</nav>
+
+{{/* 只在中文頁面載入轉換庫與執行 JS */}}
+{{ if hasPrefix .Language.Lang "zh" }}
+<script src="https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/dist/umd/full.js"></script>
+<script>
+  (function () {
+    let mode = localStorage.getItem('site_zh_mode') || 'tw'; // 預設繁體 'tw'
+
+    function updateButtonUI() {
+      const isSimp = mode === 'cn';
+      const btn = document.getElementById('zh-toggle-btn');
+      const mBtn = document.getElementById('zh-toggle-mobile');
+      if (btn) btn.innerText = isSimp ? '繁' : '简';
+      if (mBtn) mBtn.innerText = isSimp ? '切換繁體' : '切换简体';
+    }
+
+    function runConvert(target) {
+      if (typeof OpenCC === 'undefined') return;
+      const converter = target === 'cn'
+        ? OpenCC.Converter({ from: 'tw', to: 'cn' })
+        : OpenCC.Converter({ from: 'cn', to: 'tw' });
+
+      // 使用 NodeIterator 只轉純文字節點，避開 code、pre、script 等標籤
+      const walker = document.createNodeIterator(
+        document.body,
+        NodeFilter.SHOW_TEXT,
+        {
+          acceptNode: function (node) {
+            const parent = node.parentElement;
+            if (!parent) return NodeFilter.FILTER_REJECT;
+            const tag = parent.tagName.toLowerCase();
+            if (['script', 'style', 'code', 'pre', 'textarea'].includes(tag)) {
+              return NodeFilter.FILTER_REJECT;
+            }
+            if (parent.id === 'zh-toggle-btn' || parent.id === 'zh-toggle-mobile') {
+              return NodeFilter.FILTER_REJECT;
+            }
+            return NodeFilter.FILTER_ACCEPT;
+          }
+        }
+      );
+
+      let node;
+      while ((node = walker.nextNode())) {
+        if (node.nodeValue.trim()) {
+          node.nodeValue = converter(node.nodeValue);
+        }
+      }
+
+      mode = target;
+      localStorage.setItem('site_zh_mode', target);
+      updateButtonUI();
+    }
+
+    function toggle() {
+      const next = mode === 'tw' ? 'cn' : 'tw';
+      runConvert(next);
+    }
+
+    function init() {
+      updateButtonUI();
+      if (mode === 'cn') {
+        runConvert('cn');
+      }
+      const btn = document.getElementById('zh-toggle-btn');
+      const mBtn = document.getElementById('zh-toggle-mobile');
+      if (btn) btn.addEventListener('click', toggle);
+      if (mBtn) mBtn.addEventListener('click', toggle);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+{{ end }}

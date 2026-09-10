@@ -1,8 +1,24 @@
 baseurl = "https://stjl.github.io/"
 defaultContentLanguage = "zh"
-locale = "zh-Hans"
+locale = "zh-TW"
 title = "小麟‘s blog"
 theme = "dream"
+
+[languages]
+  [languages.zh]
+    languageName = "中文"
+    contentDir = "content/zh"
+    weight = 1
+  [languages.en]
+    languageName = "English"
+    contentDir = "content/en"
+    weight = 2
+
+[languages.en.params]
+  description = "My Hugo Blog in English"
+
+[languages.zh.params]
+  description = "我的 Hugo 部落格"
 
 # [services]
 # [services.disqus]
@@ -20,7 +36,6 @@ darkTheme = "forest"
 # backgroundImageDark = ""
 
 author = "stJL"
-description = "小麟的網路隨身筆記📒"
 # avatar = "img/avatar.png"
 headerTitle = "小麟‘s blog"
 motto = "千里之行始於足下"
@@ -45,12 +60,12 @@ siteStartYear = 2026
 favicon = "favicon.ico"
 
 # Syntax highlighting
-customSyntaxHighlighting = true
+# customSyntaxHighlighting = true
 
 # options
-stickyNav = true
-# reorderNavItems = ["about", "search", "rss", "posts", "categories", "tags"]
-# collapseNavItems = ["posts", "categories", "tags"]
+# stickyNav = true
+reorderNavItems = ["github", "about", "search", "rss", "posts", "categories", "tags", "series"]
+collapseNavItems = ["posts", "categories", "tags"]
 # noDefaultSummaryCover = true
 showTableOfContents = true
 showSummaryCoverInPost = true
@@ -58,7 +73,9 @@ imageZoomableInPost = true
 showPrevNextPost = true
 # reorderShares = ["x", "facebook", "whatsapp"]
 
-# [params.navItems]
+[params.navItems]
+series = { href = "/series", icon = "planet", title = "Series" }
+github = { href = "https://github.com/g1eny0ung", target = "_blank", icon = "logo-github", title = "GitHub" }
 
 # [params.twikoo]
 # enabled = true
@@ -66,9 +83,9 @@ showPrevNextPost = true
 # region = ""
 # lang = ""
 
-# [params.advanced]
-# customCSS = ["css/custom.css"]
-# customJS = []
+[params.advanced]
+customCSS = ["css/custom.css"]
+# customJS = ["js/custom.js"]
 
 # [params.experimental]
 # jsDate = true

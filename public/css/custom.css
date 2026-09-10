@@ -1,0 +1,24 @@
+/* ==========================================================================
+   板块：关于页面布局定制 (About Page Layout Styles)
+   ========================================================================== */
+
+/* 1. 【容器拓宽】当且仅当页面包含“关于”网格时，将外层大容器的最大宽度强行扩大至屏幕宽度的 95% */
+.container:has(.dream-grid-about) {
+    max-width: 95vw !important;
+    width: 95vw !important;
+}
+
+/* 2. 【网格解锁】重置关于页面的瀑布流容器，强制打破主题原作者用 JS 动态计算的卡片固定高度 */
+.dream-grid-about {
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* 3. 【卡片横幅化】剥离关于页面内部卡片原本的绝对定位与多列限制，使其像精美的大横幅一样 100% 垂直占满屏幕 */
+.dream-grid-about .dream-column {
+    position: relative !important;
+    left: unset !important;
+    top: unset !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
