@@ -7,7 +7,7 @@ theme = "dream"
 # [services]
 # [services.disqus]
 # shortname = ""
-[services.googleAnalytics]
+#[services.googleAnalytics]
 ID = "G-XLWVSBGEG0"
 
 [params]
@@ -19,15 +19,15 @@ darkTheme = "forest"
 # backgroundImage = "img/global-background.jpg"
 # backgroundImageDark = ""
 
-author = "Dream"
+author = "stJL"
 # description = ""
 # avatar = "img/avatar.png"
-headerTitle = "Hugo Theme Dream"
+headerTitle = "小麟的網路日記📓"
 # motto = ""
 
 # footerBottomText = ""
 
-# rss = true
+rss = true
 
 # utterancesRepo = ""
 
@@ -40,7 +40,7 @@ headerTitle = "Hugo Theme Dream"
 
 # email = ""
 
-siteStartYear = 2016
+siteStartYear = 2026
 
 # favicon = "favicon.ico"
 
@@ -48,7 +48,7 @@ siteStartYear = 2016
 # customSyntaxHighlighting = true
 
 # options
-# stickyNav = true
+stickyNav = true
 # reorderNavItems = ["about", "search", "rss", "posts", "categories", "tags"]
 # collapseNavItems = ["posts", "categories", "tags"]
 # noDefaultSummaryCover = true
