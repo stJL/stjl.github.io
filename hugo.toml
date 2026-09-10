@@ -1,5 +1,5 @@
 baseurl = "https://janusng.github.io/"
-defaultContentLanguage = "zh"
+defaultContentLanguage = "en"
 locale = "en"
 title = "Hugo Theme Dream"
 theme = "dream"
