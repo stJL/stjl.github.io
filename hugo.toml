@@ -1,13 +1,13 @@
 baseurl = "https://stjl.github.io/"
 defaultContentLanguage = "zh"
-locale = "zh"
-title = "小麟的網路日記📓"
+locale = "zh-Hans"
+title = "小麟‘s blog"
 theme = "dream"
 
 # [services]
 # [services.disqus]
 # shortname = ""
-#[services.googleAnalytics]
+[services.googleAnalytics]
 ID = "G-XLWVSBGEG0"
 
 [params]
@@ -20,16 +20,16 @@ darkTheme = "forest"
 # backgroundImageDark = ""
 
 author = "stJL"
-# description = ""
+description = "小麟的網路隨身筆記📒"
 # avatar = "img/avatar.png"
-headerTitle = "小麟的網路日記📓"
-# motto = ""
+headerTitle = "小麟‘s blog"
+motto = "千里之行始於足下"
 
 # footerBottomText = ""
 
 rss = true
 
-# utterancesRepo = ""
+utterancesRepo = "stJL/stjl.github.io"
 
 # valine = true
 # LEANCLOUD_APP_ID = ""
@@ -42,20 +42,20 @@ rss = true
 
 siteStartYear = 2026
 
-# favicon = "favicon.ico"
+favicon = "favicon.ico"
 
 # Syntax highlighting
-# customSyntaxHighlighting = true
+customSyntaxHighlighting = true
 
 # options
 stickyNav = true
 # reorderNavItems = ["about", "search", "rss", "posts", "categories", "tags"]
 # collapseNavItems = ["posts", "categories", "tags"]
 # noDefaultSummaryCover = true
-# showTableOfContents = true
-# showSummaryCoverInPost = true
-# imageZoomableInPost = true
-# showPrevNextPost = true
+showTableOfContents = true
+showSummaryCoverInPost = true
+imageZoomableInPost = true
+showPrevNextPost = true
 # reorderShares = ["x", "facebook", "whatsapp"]
 
 # [params.navItems]
