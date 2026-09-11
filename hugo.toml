@@ -26,6 +26,11 @@ theme = "dream"
 [services.googleAnalytics]
 ID = "G-XLWVSBGEG0"
 
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
 [params]
 # zenMode = true
 
@@ -38,7 +43,7 @@ darkTheme = "forest"
 author = "stJL"
 # avatar = "img/avatar.png"
 headerTitle = "小麟‘s blog"
-motto = "千里之行始於足下"
+motto = "追尋星辰的漫長之旅，始於傾聽內心跳動的那一刻。"
 
 # footerBottomText = ""
 
@@ -74,8 +79,8 @@ showPrevNextPost = true
 # reorderShares = ["x", "facebook", "whatsapp"]
 
 [params.navItems]
-series = { href = "/series", icon = "planet", title = "Series" }
-github = { href = "https://github.com/g1eny0ung", target = "_blank", icon = "logo-github", title = "GitHub" }
+# series = { href = "/series", icon = "planet", title = "Series" }
+github = { href = "https://github.com/stJL", target = "_blank", icon = "logo-github", title = "GitHub" }
 
 # [params.twikoo]
 # enabled = true

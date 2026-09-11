@@ -22,3 +22,14 @@
     width: 100% !important;
     max-width: 100% !important;
 }
+
+/* 4. 【移除卡片悬停变色】强制覆盖原主题写死的 hover:bg-base-content/10 悬停特效，使其保持原色 */
+.dream-grid-about .card:hover {
+    background-color: var(--color-base-100, #ffffff) !important;
+}
+
+/* 5. 【解除文章排版宽度限制】移除 Tailwind prose 自带的 65ch 最大宽度限制，使其完全填满横幅卡片 */
+.dream-grid-about .prose {
+    max-width: none !important;
+    width: 100% !important;
+}

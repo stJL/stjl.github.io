@@ -3,8 +3,10 @@
   "frontMatter.taxonomy.contentTypes": [
     {
       "name": "default",
-      "pageBundle": false,
+      "pageBundle": true, // 啟用Page Bundle
       "previewPath": null,
+      // 預設新文章目錄名，留空，目錄就會直接使用標題當名稱
+      "filePrefix": "", 
       "fields": [
         {
           "title": "Title",
@@ -49,10 +51,13 @@
   "frontMatter.framework.id": "hugo",
   "frontMatter.content.publicFolder": "static",
   "frontMatter.preview.host": "http://localhost:1313",
+  "frontMatter.site.baseURL": "https://stjl.github.io",
+  "frontMatter.framework.startCommand ": "hugo server",
+  "frontMatter.taxonomy.frontMatterType": "YAML",
+  "frontMatter.taxonomy.dateFormat": "yyyy-MM-dd'T'HH:mm:ssxxx",
   "frontMatter.content.pageFolders": [
     {
-      "path": "[[workspace]]/content/posts"
+      "path": "[[workspace]]/content/"
     }
-  ],
-  "frontMatter.git.enabled": true
+  ]
 }
